@@ -35,7 +35,7 @@ def returnDistances(x):
     out_array = np.diff(input_array)
     return out_array
     
-def removeIntervals(x,y,interval):
+def removeInterval(x,y,interval):
     #Import(s)
     import numpy as np 
 
