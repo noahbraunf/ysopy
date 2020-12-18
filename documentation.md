@@ -32,8 +32,8 @@ peak_indices = calculatePeakLocks(x=example_array_of_mags,w_val=3)
 from ysopy.handy_scipts import queryCoordSimbad
 obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
 ```
-### removeIntervals()
-- **Summary:** this function removes parameter defined intervals of data from a sorted array of dates and other provided arrays. ```removeIntervals(...)[0]``` returns the modified dates array, and ```removeIntervals(...)[1]``` returns a list of the modified input arrays, so to call the modified input arrays individually, use an additional index, e.g. ```removeIntervals(...)[1][0]``` returns the first modified array that you provided in ```y```. 
+### removeInterval()
+- **Summary:** this function removes data that fall between a parameter defined interval of dates. ```removeInterval(...)[0]``` returns the modified dates array, and ```removeInterval(...)[1]``` returns a list of the modified input arrays, so to call the modified input arrays individually, use an additional index, e.g. ```removeInterval(...)[1][0]``` returns the first modified array that you provided in ```y```. 
 - **Parameters:**
   - x: the sorted date array. 
   - y: a list of predefined array names (e.g. ```y=[mags,magerrs]```).   
@@ -41,7 +41,7 @@ obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
 #### Example: 
 ```
 #Import(s)
-from ysopy.handy_scripts import removeIntervals
+from ysopy.handy_scripts import removeInterval
 from astropy.io import ascii
 import numpy as np
 import matplotlib.pyplot as plt
@@ -52,12 +52,12 @@ r_dates = r['mag']
 r_mags=r['hjd']
 r_magerrs = r['magerr']
 
-f = removeIntervals(x=r_dates,y=[r_mags,r_magerrs],interval='2458455.6:2458455.8')
+f = removeInterval(x=r_dates,y=[r_mags,r_magerrs],interval='2458455.6:2458455.8')
 r_dates2=f[0]
 r_mags2=f[1][0] 
 r_magerrs2=f[1][1]
 
-f=removeIntervals(x=r_dates2,y=[r_mags2,r_magerrs2],interval='2458437:2458438')
+f=removeInterval(x=r_dates2,y=[r_mags2,r_magerrs2],interval='2458437:2458438')
 r_dates3=f[0]
 r_mags3=f[1][0]
 r_magerrs3 = f[1][1]
