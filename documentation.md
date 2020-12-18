@@ -36,9 +36,36 @@ obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
 - **Summary:** this function removes parameter defined intervals of data from a sorted array of dates and its corresponding array of mags. 
 - **Parameters:**
   - x: the sorted date array. 
-  - y: the array of mags, sorted to the date array. 
-  - intervals: this should be a list in which the elements are formatted like this: ```'lower_date_bound:upper_date_bound'```. All data in the provided open intervals (lower_date_bound,upper_date_bound) will be removed. So if one wanted to remove all observations between HJD 2456202 and HJD 2456205 in a data set, you should set intervals to ```['2456202:2456205']```.
-#### NOTE: This function is a work in progress and is not in handy_scripts.py yet!
+  - y: a list of predefined array names (e.g. ```y=[mags,magerrs]```).   
+  - intervals: this should be a string in which which should be formated like this: ```'lower_date_bound:upper_date_bound'```. All data in the provided open interval (lower_date_bound,upper_date_bound) will not be present in the return date array and the y arrays. For example, if one wanted to remove all observations between HJD 2456202 and HJD 2456205 in a data set, set ```interval``` to ```'2456202:2456205'```.
+#### Example: 
+```
+r = ascii.read(data_file,format='ipac',delimiter='|')
+r_dates = r['mag']
+r_mags=r['hjd']
+r_magerrs = r['magerr']
+
+f = removeIntervals(x=r_dates,y=[r_mags,r_magerrs],interval='2458455.6:2458455.8')
+r_dates2=f[0]
+r_mags2=f[1][0] 
+r_magerrs2=f[1][1]
+
+f=removeIntervals(x=r_dates2,y=[r_mags2,r_magerrs2],interval='2458437:2458438')
+r_dates3=f[0]
+r_mags3=f[1][0]
+r_magerrs3 = f[1][1]
+
+plt.errorbar(r_dates3,r_mags3,yerr=r_magerrs3,color='tomato',lw=0,marker='o',ms=2,elinewidth=1)
+plt.ylabel('mag')
+plt.xlabel('HJD')
+plt.gca().invert_yaxis()
+plt.show()
+```
+<img src="https://github.com/noahbraunf/ysopy/blob/main/images/no_clumps.png" width="350" height="230">
+- Note how the clumps in the below zoomed-in image (between HJD 2458455.6-2458455.8 and HJD 2458437-2458438) are not present in the above plot. 
+<img src="https://github.com/noahbraunf/ysopy/blob/main/images/clumps_zoomin.png" width="350" height="230">
+
+
 ### returnDistances()
 - **Summary:** this function returns an array of all the distances between date values in an array. It can really be replaced by the one line np.diff(a) function that it's based off (it used to be a more extensive function, but then we realized we can just simplify it to np.diff). 
 - **Parameters:** 
