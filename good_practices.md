@@ -7,5 +7,8 @@ path = '\home\example_file.tbl'
 r = ascii.read(path,format='ipac',delimiter='|')
 red_dates = np.array(r['hjd'])
 red_mags=np.array(r['mags'])
-red_mag_erros=np.array(r['magerr'])
+red_mag_errors=np.array(r['magerr'])
 ``` 
+- Good routine for pre-treating ZTF data prior to analysis: 
+  1. Remove known "clump(s)" from data with the ```removeInterval()``` function.
+  2. Sort data with the ```sortData()``` function.
