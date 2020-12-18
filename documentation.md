@@ -33,13 +33,19 @@ from ysopy.handy_scipts import queryCoordSimbad
 obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
 ```
 ### removeIntervals()
-- **Summary:** this function removes parameter defined intervals of data from a sorted array of dates and its corresponding array of mags. 
+- **Summary:** this function removes parameter defined intervals of data from a sorted array of dates and other provided arrays. ```removeIntervals(...)[0]``` returns the modified dates array, and ```removeIntervals(...)[1]``` returns a list of the modified input arrays, so to call the modified input arrays individually, use an additional index, e.g. ```removeIntervals(...)[1][0]``` returns the first modified array that you provided in ```y```. 
 - **Parameters:**
   - x: the sorted date array. 
   - y: a list of predefined array names (e.g. ```y=[mags,magerrs]```).   
-  - intervals: this should be a string in which which should be formated like this: ```'lower_date_bound:upper_date_bound'```. All data in the provided open interval (lower_date_bound,upper_date_bound) will not be present in the return date array and the y arrays. For example, if one wanted to remove all observations between HJD 2456202 and HJD 2456205 in a data set, set ```interval``` to ```'2456202:2456205'```.
+  - intervals: this should be a string in which which should be formated like this: ```'lower_date_bound:upper_date_bound'```. All data in the provided open interval (lower_date_bound,upper_date_bound) will not be present in the return date array and the ```y``` arrays. For example, if one wanted to remove all observations between HJD 2456202 and HJD 2456205 in a data set, set ```interval``` to ```'2456202:2456205'```.
 #### Example: 
 ```
+#Import(s)
+from ysopy.handy_scripts import removeIntervals
+from astropy.io import ascii
+import numpy as np
+import matplotlib.pyplot as plt
+
 r = ascii.read(data_file,format='ipac',delimiter='|')
 r_dates = r['mag']
 r_mags=r['hjd']
@@ -64,8 +70,6 @@ plt.show()
 <img src="https://github.com/noahbraunf/ysopy/blob/main/images/no_clumps.png" width="350" height="230">
 - Note how the clumps in the below zoomed-in image (between HJD 2458455.6-2458455.8 and HJD 2458437-2458438) are not present in the above plot. 
 <img src="https://github.com/noahbraunf/ysopy/blob/main/images/clumps_zoomin.png" width="350" height="230">
-
-
 ### returnDistances()
 - **Summary:** this function returns an array of all the distances between date values in an array. It can really be replaced by the one line np.diff(a) function that it's based off (it used to be a more extensive function, but then we realized we can just simplify it to np.diff). 
 - **Parameters:** 
@@ -116,7 +120,7 @@ plt.ylabel('Mag')
 plt.show()
 ```
 <img src="https://github.com/thissop/YSOs/blob/main/ysospy/images/mincardinaction.png" width="350" height="230">
-*Note that in this example, sgd was a predefined array of dates, and that sgm was a predefined array of mags. Also note that isolated data present in the graph below have been removed in the plot of the returnGoodIntervals output above.
+- Note that in this example, sgd was a predefined array of dates, and that sgm was a predefined array of mags. Also note that isolated data present in the graph below have been removed in the plot of the returnGoodIntervals output above.
 <img src="https://github.com/thissop/YSOs/blob/main/ysospy/images/betterplotofprev.png" width="350" height="230">
 
 ## plotting_funcs.py
@@ -165,5 +169,5 @@ plt.ylabel('Counts')
 plt.show()
 ```
 <img src="https://github.com/thissop/YSOs/blob/main/ysospy/images/sergisonDist.png" width="350" height="230">
-*Note that in this example, srm is a predefined magnitudes array. * 
+- Note that in this example, srm is a predefined magnitudes array. 
 
