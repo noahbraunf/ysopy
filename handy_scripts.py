@@ -35,25 +35,32 @@ def returnDistances(x):
     out_array = np.diff(input_array)
     return out_array
     
-def removeIntervals(x,y,intervals):
+def removeIntervals(x,y,interval):
     #Import(s)
     import numpy as np 
 
     #Action
     x = list(x)
-    y = list(y)
-    
-    for item in intervals:
-        lower_bound = float(item.split(':')[0])
-        upper_bound = float(item.split(':')[1])
-        for elem in x:
-            if elem < upper_bound:
-                if elem > lower_bound:
-                    elem_index = x.index(elem)
-                    x.remove(elem)
-                    y.remove(y[elem_index])
-    
-    return np.array(x),np.array(y)
+
+    new_x = []
+    indices = []
+    new_ys = []
+    lower_bound = float(interval.split(':')[0])
+    upper_bound = float(interval.split(':')[1])    
+
+    for item in x:
+        if item > upper_bound or item < lower_bound:
+            new_x.append(item)
+            indices.append(x.index(item))
+
+    for item in y:
+        item = list(item)
+        new_y = []
+        for elem in indices:
+            new_y.append(item[elem])
+        new_ys.append(np.array(new_y))
+
+    return np.array(new_x),new_ys
 
 def sortData(x,y):
     #Import(s)
