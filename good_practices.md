@@ -1,5 +1,5 @@
 - By default, np.std(x) returns the population standard deviation of an array—to get the sample standard deviation (N-1), set the optional ```ddof``` equal to the integer 1. 
-- Read columns into arrays from ipac format .tbl files:
+- Read data columns into arrays from ipac format .tbl files:
 ```
 from astropy.io import ascii
 import numpy as np
