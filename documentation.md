@@ -1,5 +1,5 @@
 # ysopy 
-This is the documentation for all the files and functions in our ysospy package. **Note: this documentation is out of date and missing multiple functions right now**
+This is the documentation for all the files and functions in our ysopy package. **Note: documentation is not caught up with some of the code yet**
 
 ## Guidelines
 #### Naming and Style Conventions 
