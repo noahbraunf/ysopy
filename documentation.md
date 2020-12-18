@@ -1,4 +1,4 @@
-# ysospy 
+# ysopy 
 This is the documentation for all the files and functions in our ysospy package. **Note: this documentation is out of date and missing multiple functions right now**
 
 ## Guidelines
@@ -6,7 +6,7 @@ This is the documentation for all the files and functions in our ysospy package.
 - Module (file) names should be in snake_case, and functions in camelCase. 
 - Example: 
 ```
-from ysospy.plotting_funcs import plotLightCurve
+from ysopy.plotting_funcs import plotLightCurve
 ```
 #### General notes
 - All functions automatically import the modules they require.  
@@ -19,7 +19,7 @@ from ysospy.plotting_funcs import plotLightCurve
   - w_val: the required minimal horizontal distance between neighbouring peaks (scipy). This function is different than the ```scipy.find_peaks()``` it's based on because it finds relative minimums as well as relative maximums (it does this by find peaks in the array multiplied by negative one). 
 #### Example: 
 ```
-from ysospy.handy_scipts import calculatePeakLocs
+from ysopy.handy_scipts import calculatePeakLocs
 peak_indices = calculatePeakLocks(x=example_array_of_mags,w_val=3)
 ```
 ### queryCoordSimbad()
@@ -29,7 +29,7 @@ peak_indices = calculatePeakLocks(x=example_array_of_mags,w_val=3)
   - search_radius: the search radius (in arcseconds), should be an integer value. ```search_radius=5``` is the recommended default.
 ##### Example: 
 ```
-from ysospy.handy_scipts import queryCoordSimbad
+from ysopy.handy_scipts import queryCoordSimbad
 obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
 ```
 ### removeIntervals()
@@ -45,7 +45,7 @@ obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
   - x: the array of dates in which you wish to find the differences between consecutive elements. 
 #### Example:
 ```
-from ysospy.handy_scripts import returnDistances
+from ysopy.handy_scripts import returnDistances
 differences=returnDistances(example_date_array)
 ```
 ### sortData()
@@ -55,7 +55,7 @@ differences=returnDistances(example_date_array)
   - y: the corresponding array of magnitudes. 
 #### Example: 
 ```
-from ysospy.handy_scripts import sortData
+from ysopy.handy_scripts import sortData
 sorted_dates=sortData(example_dates_array,example_mags_array)[0]
 sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
 ```
@@ -72,7 +72,7 @@ sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
 ```
 #Import(s)
 import matplotlib.pyplot as plt
-from ysospy.interpolation import returnGoodIntervals
+from ysopy.interpolation import returnGoodIntervals
 
 #Action
 num_arrays = returnGoodRegions(x=sgd,y=sgm,max_sep=20,min_card=3)[0] 
@@ -113,7 +113,7 @@ plt.show()
   - error_arrays: the names of the arrays of error values. Set it to 'N/A' when plot_type is not set to either 'scatter_error' or 'plot_error'
 #### Example
 ```
-from ysospy.plotting_funcs import plotLightCurve
+from ysopy.plotting_funcs import plotLightCurve
 plotLightCurve(x=[sgd,srd],y=[sgm,srm],colors=['green','red'],x_label='HJD',y_label='Mag',plot_title='Example Plot',line_labels=['Green Band','Red Band'],plot_type='scatter',out_type='show',error_arrays='N/A')
 ```
 <img src="https://github.com/thissop/YSOs/blob/main/ysospy/images/example_plotLightCurve.png" width="350" height="230">
@@ -128,7 +128,7 @@ plotLightCurve(x=[sgd,srd],y=[sgm,srm],colors=['green','red'],x_label='HJD',y_la
   - percentiles: the AH68 metric is calculated with the 16th and 84th percentiles (as in the paper), but in case you want to calculate a similiar measure of the amplitude of variability in the array, you can enter the percentiles as integer items in a list and set that list equal to the percentiles argument, e.g. percentiles=[5,95] (the range that confines 90% of the data). 
 #### Example: 
 ```
-from ysospy.plotting_funcs import sergisonDistribution()
+from ysopy.plotting_funcs import sergisonDistribution()
 import seaborn as sns
 import matplotlib.pyplot as plt
 norm_mags = sergisonDistribution(x=srm,percentiles=[16,84])[1] #percentiles for AH68 metric
