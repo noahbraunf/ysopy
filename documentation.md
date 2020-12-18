@@ -70,6 +70,7 @@ plt.show()
 <img src="https://github.com/noahbraunf/ysopy/blob/main/images/no_clumps.png" width="350" height="230">
 - Note how the clumps in the below zoomed-in image (between HJD 2458455.6-2458455.8 and HJD 2458437-2458438) are not present in the above plot. 
 <img src="https://github.com/noahbraunf/ysopy/blob/main/images/clumps_zoomin.png" width="350" height="230">
+
 ### returnDistances()
 - **Summary:** this function returns an array of all the distances between date values in an array. It can really be replaced by the one line np.diff(a) function that it's based off (it used to be a more extensive function, but then we realized we can just simplify it to np.diff). 
 - **Parameters:** 
