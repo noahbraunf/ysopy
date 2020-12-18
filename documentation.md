@@ -46,6 +46,7 @@ from astropy.io import ascii
 import numpy as np
 import matplotlib.pyplot as plt
 
+#Action
 r = ascii.read(data_file,format='ipac',delimiter='|')
 r_dates = r['mag']
 r_mags=r['hjd']
