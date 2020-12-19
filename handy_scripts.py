@@ -86,7 +86,7 @@ def sortData(x,y):
     
     return sorted_dates, sorted_arrays
 
-def sortedIndices(data):
+def returnSI(data):
     n = 0
     tempTup = []
     for elem in data:
@@ -98,7 +98,7 @@ def sortedIndices(data):
         new_indices.append(elem[1])
     return new_indices
 
-def sortFromIndices(data, indices): #indices must be less than or equal to data
+def sortFI(data, indices): #indices must be less than or equal to data
     rearranged = []
     for elem in indices:
         rearranged.append(data[elem])
