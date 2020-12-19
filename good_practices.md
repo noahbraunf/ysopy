@@ -6,7 +6,7 @@ import numpy as np
 path = '\home\example_file.tbl'
 r = ascii.read(path,format='ipac',delimiter='|')
 red_dates = np.array(r['hjd'])
-red_mags=np.array(r['mags'])
+red_mags=np.array(r['mag'])
 red_mag_errors=np.array(r['magerr'])
 ``` 
 - Good routine for pre-treating ZTF data prior to analysis: 
