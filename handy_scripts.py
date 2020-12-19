@@ -85,3 +85,21 @@ def sortData(x,y):
     sorted_dates = np.array(sorted_dates)
     
     return sorted_dates, sorted_arrays
+
+def sortedIndices(data):
+    n = 0
+    tempTup = []
+    for elem in data:
+        tempTup.append((elem, n))
+        n += 1
+    tempTup.sort()
+    new_indices = []
+    for elem in tempTup:
+        new_indices.append(elem[1])
+    return new_indices
+
+def sortFromIndices(data, indices): #indices must be less than or equal to data
+    rearranged = []
+    for elem in indices:
+        rearranged.append(data[elem])
+    return rearranged   
