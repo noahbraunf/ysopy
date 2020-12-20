@@ -89,6 +89,7 @@ def sortData(x,y):
 def returnSI(data):
     n = 0
     tempTup = []
+    data = list(data)
     for elem in data:
         tempTup.append((elem, n))
         n += 1
@@ -99,6 +100,8 @@ def returnSI(data):
     return new_indices
 
 def sortFI(data, indices): #indices must be less than or equal to data
+    data=list(data)
+    indices=list(indices)
     rearranged = []
     for elem in indices:
         rearranged.append(data[elem])
