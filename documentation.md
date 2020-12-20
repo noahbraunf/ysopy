@@ -92,6 +92,15 @@ from ysopy.handy_scripts import sortData
 sorted_dates=sortData(example_dates_array,example_mags_array)[0]
 sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
 ```
+### returnSI()
+- **Summary:** this function, when used with ```sortFI()```, provides an alternative way to sort complementary lists according to one sorted list. ```returnSI``` stands for ```returnSortedIndices``` because this function takes in an input list, sorts it, and returns the indices of the sorted elements.
+- **Parameters:** 
+  - data: the list/array of dates that you want to sort and return the sorted indices from (for sorting other arrays to that sorted dates list/array). 
+### sortFI()
+- **Summary:** this function sorts and returns a list/array based on a given list of indices to sort it to. 
+- **Parameters:**
+  - data: the list/array to sort based on the following provided list of indices 
+  - indices: the list of indices to sort data on. 
 ## interpolation.py
 - **Overview:** this file contains routines that may be a great help when interpolating data.
 ### returnGoodIntervals()
