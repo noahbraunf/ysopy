@@ -11,6 +11,7 @@ setuptools.setup(
     description="Useful helper functions for HRL",
     long_description=long_description,
     url="https://github.com/noahbraunf/ysopy",
+    packages=setuptools.find_packages(),
     classifiers=["Programming Language :: Python :: 3"],
     python_requires=">=3.6",
 )
