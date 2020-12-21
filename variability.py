@@ -107,3 +107,16 @@ def sergisonDistribution(x,percentiles):
         normalized_mags.append(normalized_mag)
 
     return amp_metric, np.array(normalized_mags) # Return results
+
+def sokolovskyMetric(x,xerr):
+    x = np.array(x)
+    xerr = np.array(xerr)
+    
+    x_minus_xerr = x-xerr
+    x_plus_xerr = x+xerr
+    
+    min_val = np.amin(x_minus_yerr)
+    max_val = np.amax(x_plus_yerr)
+    
+    nu = (min_val-max_val)/(min_val+max_val)
+    return nu
