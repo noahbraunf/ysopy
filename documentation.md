@@ -102,7 +102,24 @@ sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
   - data: the list/array to sort based on the following provided list of indices 
   - indices: the list of indices to sort data on. 
 ### clean_clusters()
-- **Summary:** this function removes the weird "clusters" in ZTF lightcurve data. 
+- **Summary:** this function removes the weird "clusters" in ZTF lightcurve data. The function does not remove clusters based on *a priori* knowledge of where the clusters occur in time. Rather, it bins the data into one day bins from ```min(dates)``` to ```max(dates)``` and calculates the mean "bin_count" as well as the standard deviation of the "bin_counts". Then it removes data that occur in bins which have more data points that the cutoff, which is calculated as ```np.mean(bin_counts)+tolerance*(np.std(bin_counts,ddof=1))```. ```tolerance``` is parameter defined number of standard deviations from the mean that the user decides on. For example, a tolerance set to ```1``` means that all bins with counts > mean counts + one standard deviation are deleted from the returned lists. 
+- **Parameters:**
+  - dates: the list of observation dates (MJD, HJD, JD, etc.)
+  - paired_lists: a list of the lists containing data values paired to the date values in ```dates```, e.g. it may have lists of mags and magerrs. 
+  - tolerance: integer/float for use in the cutoff calculation mentioned previously. 
+#### Example: 
+```
+from ysopy.handy_scripts import clean_clusters
+r_dates = [] #Pretend this list is populated
+r_mags = [] # ""
+r_magerrs = [] # ""
+
+cf = clean_clusters(dates=r_dates,paired_lists=[r_mags,r_magerrs],tolerance=3)
+
+cleaned_r_dates = cf[0]
+cleaned_r_mags = cf[1][0]
+cleaned_r_magerrs = cf[1][1]
+```
 ## interpolation.py
 - **Overview:** this file contains routines that may be a great help when interpolating data.
 ### returnGoodIntervals()
