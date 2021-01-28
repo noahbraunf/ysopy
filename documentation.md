@@ -8,6 +8,15 @@ This is the documentation for all the files and functions in our ysopy package. 
 ```
 from ysopy.plotting_funcs import plotLightCurve
 ```
+#### Requirements 
+- numpy
+- matplotlib
+- scipy
+- sklearn
+- seaborn
+- progress
+- astropy
+- pandas
 #### General notes
 - All functions automatically import the modules they require.  
 ## handy_scripts.py
