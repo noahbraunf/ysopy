@@ -101,6 +101,8 @@ sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
 - **Parameters:**
   - data: the list/array to sort based on the following provided list of indices 
   - indices: the list of indices to sort data on. 
+### clean_clusters()
+- **Summary:** this function removes the weird "clusters" in ZTF lightcurve data. 
 ## interpolation.py
 - **Overview:** this file contains routines that may be a great help when interpolating data.
 ### returnGoodIntervals()
