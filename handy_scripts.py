@@ -140,6 +140,7 @@ def clean_clusters(dates,paired_lists,tolerance):
             intervals_to_remove.append(edge_string)
 
     indices_to_remove = []
+    intervals_to_remove = list(set(intervals_to_remove))
 
     for interval in intervals_to_remove:
         interval_list = interval.split(':')
