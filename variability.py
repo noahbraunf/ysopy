@@ -1,11 +1,11 @@
-def codyM(data):
+def codyM(x):
     #Import(s)
     from scipy import stats 
     import numpy as np
     
     #Action
-    data = np.array(data)
-    m_metric = (np.mean([stats.mstats.mquantiles(data,prob=0.9),stats.mstats.mquantiles(data,prob=0.1)])-np.median(data))/np.sqrt(((data-data.mean())**2).sum()/len(data))
+    x = np.array(x)
+    m_metric = (np.mean([stats.mstats.mquantiles(x,prob=0.9),stats.mstats.mquantiles(x,prob=0.1)])-np.median(x))/np.sqrt(((x-x.mean())**2).sum()/len(x))
     return m_metric
 
 def lombScargle(x, y, yerr, fap_levels, min_period, max_period, out_type):
