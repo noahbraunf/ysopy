@@ -27,7 +27,7 @@ from ysopy.plotting_funcs import plotLightCurve
   - x: the array of magnitudes (which has been previously sorted to a corresponding array of dates)
   - w_val: the required minimal horizontal distance between neighbouring peaks (scipy). This function is different than the ```scipy.find_peaks()``` it's based on because it finds relative minimums as well as relative maximums (it does this by find peaks in the array multiplied by negative one). 
 #### Example: 
-```
+```python
 from ysopy.handy_scipts import calculatePeakLocs
 peak_indices = calculatePeakLocks(x=example_array_of_mags,w_val=3)
 ```
@@ -37,7 +37,7 @@ peak_indices = calculatePeakLocks(x=example_array_of_mags,w_val=3)
   - raw_coord: the coordinate for the object in question should be in this form: ```raw_coord='20:50:32.32+44:26:17.4'```.
   - search_radius: the search radius (in arcseconds), should be an integer value. ```search_radius=5``` is the recommended default.
 ##### Example: 
-```
+```python
 from ysopy.handy_scipts import queryCoordSimbad
 obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
 ```
@@ -48,7 +48,7 @@ obsid = queryCoordSimbad(raw_coord='20:54:24.41+44:48:17.3',search_radius=5)
   - y: a list of predefined array names (e.g. ```y=[mags,magerrs]```).   
   - intervals: this should be a string in which which should be formated like this: ```'lower_date_bound:upper_date_bound'```. All data in the provided open interval (lower_date_bound,upper_date_bound) will not be present in the return date array and the ```y``` arrays. For example, if one wanted to remove all observations between HJD 2456202 and HJD 2456205 in a data set, set ```interval``` to ```'2456202:2456205'```.
 #### Example: 
-```
+```python
 #Import(s)
 from ysopy.handy_scripts import removeInterval
 from astropy.io import ascii
@@ -86,7 +86,7 @@ plt.show()
 - **Parameters:** 
   - x: the array of dates in which you wish to find the differences between consecutive elements. 
 #### Example:
-```
+```python
 from ysopy.handy_scripts import returnDistances
 differences=returnDistances(example_date_array)
 ```
@@ -96,7 +96,7 @@ differences=returnDistances(example_date_array)
   - x: the date array. 
   - y: the corresponding array of magnitudes. 
 #### Example: 
-```
+```python
 from ysopy.handy_scripts import sortData
 sorted_dates=sortData(example_dates_array,example_mags_array)[0]
 sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
@@ -117,7 +117,7 @@ sorted_mags=sortDate(example_dates_array,example_mags_array)[1]
   - paired_lists: a list of the lists containing data values paired to the date values in ```dates```, e.g. it may have lists of mags and magerrs. 
   - tolerance: integer/float for use in the cutoff calculation mentioned previously. 
 #### Example: 
-```
+```python
 from ysopy.handy_scripts import clean_clusters
 r_dates = [] #Pretend this list is populated
 r_mags = [] # ""
@@ -139,7 +139,7 @@ cleaned_r_magerrs = cf[1][1]
   - max_sep: the maximum separation in days allowed between elements in a good sub-interval.  
   - min_card: the minimum cardinality for good intervals. Intervals of data with lesser cardinality will be removed. 
 #### Example: 
-```
+```python
 #Import(s)
 import matplotlib.pyplot as plt
 from ysopy.interpolation import returnGoodIntervals
@@ -182,7 +182,7 @@ plt.show()
   - out_type: should either be 'show', which results in plt.show(), or a string filepath (which will save the plot as the given path).
   - error_arrays: the names of the arrays of error values. Set it to 'N/A' when plot_type is not set to either 'scatter_error' or 'plot_error'
 #### Example
-```
+```python
 from ysopy.plotting_funcs import plotLightCurve
 plotLightCurve(x=[sgd,srd],y=[sgm,srm],colors=['green','red'],x_label='HJD',y_label='Mag',plot_title='Example Plot',line_labels=['Green Band','Red Band'],plot_type='scatter',out_type='show',error_arrays='N/A')
 ```
@@ -191,13 +191,43 @@ plotLightCurve(x=[sgd,srd],y=[sgm,srm],colors=['green','red'],x_label='HJD',y_la
 *Note that in this example, sgm and srm represent previously defined arrays of stellar magnitudes sorted by their corresponding date arrays, sgd (sorted green dates) and srd (sorted red dates)* 
 ## variability.py
 - **Overview:** this file contains variability characterization routines. 
+### codyM()
+- **Summary**: this function calculates and returns the asymmetry metric M that first appeared in Cody et al. 2014. 
+- **Parameters**
+  - x: array of mags
+### lomgScargle()
+- **Summary:** this functions runs off Astropy's lomb-scargle class. Creates a plot that can be opened or saved and returns results. Note: we calculate periodograms as a function of frequency but for ease of interpretation, we display periodograms as a function of period. 
+- **Parameters:**
+  - x: array of observation dates
+  - y: array of observation mags
+  - yerr: array of magerrs 
+  - fap_levels: list of false alarm probability levels to calculate. Example: if you wanted to calculate the 95% and 99% confidence false alarm probabilities, set ```fap_levels=[0.05,0.01]```.
+  - min_period: minimum period to calculate (days)
+  - max_period: maximum period to calculate (days)
+  - out_type: if set to 'show' the plot is shown (i.e. ```plt.show()```), otherwise the function will save the plot to the path set to ```out_type```.
+- **Returns:**
+  - ```[0]```: best period, in days
+  - ```[1]```: power of best period
+  - ```[2-n]```: each calculated false alarm level in the same order as provided in ```fap_levels```. Example: if three separate false alarm probabilities were calculated, the function would return a total of five items (the last of which having the index ```[4]```, of course). 
+#### Example: 
+```python
+import pandas as pd
+from ysopy.variability import lombScargle
+r_file = '/home/2MASS_J20470481+4349114_r.csv'
+df = pd.read_csv(r_file)
+r_mags = list(df['mag'])
+r_mjds = list(df['mjd'])
+r_magerrs = list(df['magerr'])
+
+lombScargle(x=r_mjds,y=r_mags,yerr=r_magerrs,fap_levels=[0.1, 0.05, 0.01, 0.001],min_period=1.25,max_period=399.99,out_type='/home/Figure_1.svg')
+``` 
 ### sergisonDistribution()
 - **Summary:** this is a function for normalizing magnitudes as in Sergison et al. 2019 §4. It returns two outputs, which can be returned individually by calling  the first or second index of the function, which returns either the AH68 metric or an array of the normalized magnitudes, respectively. 
 - **Parameters:**
   - x: an array or list of magnitudes that you wish to normalize and or find the AH68 metric for. 
   - percentiles: the AH68 metric is calculated with the 16th and 84th percentiles (as in the paper), but in case you want to calculate a similiar measure of the amplitude of variability in the array, you can enter the percentiles as integer items in a list and set that list equal to the percentiles argument, e.g. percentiles=[5,95] (the range that confines 90% of the data). 
 #### Example: 
-```
+```python
 from ysopy.plotting_funcs import sergisonDistribution()
 import seaborn as sns
 import matplotlib.pyplot as plt
