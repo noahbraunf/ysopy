@@ -1,3 +1,5 @@
+# Get rid of serg dist. and the rest are good? 
+
 def codyM(x):
     #Import(s)
     from scipy import stats 
