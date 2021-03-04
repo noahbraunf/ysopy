@@ -120,8 +120,8 @@ def sokolovskyNu(x,xerr):
     x_minus_xerr = x-xerr
     x_plus_xerr = x+xerr
     
-    min_val = np.amin(x_minus_xerr)
-    max_val = np.amax(x_plus_xerr)
+    min_val = np.amin(x_plus_xerr)
+    max_val = np.amax(x_minus_xerr)
     
-    nu = (min_val-max_val)/(min_val+max_val)
+    nu = (max_val-min_val)/(max_val+min_val)
     return nu
