@@ -163,10 +163,17 @@ def sergisonDistribution(x,percentiles):
     return amp_metric, np.array(normalized_mags) # Return results
 
 def sokolovskyNu(x,xerr):
-    #Import(s)
+    '''
+    Best working version for calculating nu variabilty metric 
+    from Sokolovsky et al. 2017. 
+    '''
+    
+    # Import(s)
     import numpy as np
+    
+    # Action
+    # Equation: [ (m-e)max - (m+e)min ] / [ (m-e)max + (m+e)min ]
 
-    #Action
     x = np.array(x)
     xerr = np.array(xerr)
     
